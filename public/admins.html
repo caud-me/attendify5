@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="eric meyers.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h2>Attendify</h2>
+        <a class="button" href="/logout">Sign Out</a>
+    </header>
+    <main>
+        <div class="hero">
+            <h1><span id="admin_full_name"></span></h1>
+            <div class="flex">
+                <div class="svg_verified"></div>
+                <p>Verified Admin</p>
+            </div>
+        </div>
+
+        <section>
+            <h2>Database Manager</h2>
+            <div class="tab-container" role="tablist">
+                <button class="tab-button active" data-tab="users" role="tab">Users</button>
+                <button class="tab-button" data-tab="students" role="tab">Students</button>
+                <button class="tab-button" data-tab="student_classes" role="tab">Student Classes</button>
+                <button class="tab-button" data-tab="courses" role="tab">Courses</button>
+                <button class="tab-button" data-tab="classes" role="tab">Classes</button>
+            </div>
+            <div class="tab-content active" data-tab="users" role="tabpanel">
+                <h3>Users</h3>
+                <div class="displayTable">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Username</th>
+                                <th>Full Name</th>
+                                <th>Role</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin_tableuser">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="tab-content" data-tab="students" role="tabpanel">
+                <h3>Students</h3>
+                <div class="displayTable">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Student ID</th>
+                                <th>Full Name</th>
+                                <th>RFID</th>
+                                <th>Is Regular?</th>
+                                <th>Grade Section</th>
+                                <th>Profile Image</th>
+                                <th>Guardian Contact</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin_tablestudents">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="tab-content" data-tab="student_classes" role="tabpanel">
+                <h3>Student Classes</h3>
+                <div class="displayTable">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Student ID</th>
+                                <th>Class ID</th>
+                                <th>Enrollment Type</th>
+                                <th>Enrollment Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin_tablestudent_classes">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="tab-content" data-tab="courses" role="tabpanel">
+                <h3>Courses</h3>
+                <div class="displayTable">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Course Code</th>
+                                <th>Course Name</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin_tablecourses">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="tab-content" data-tab="classes" role="tabpanel">
+                <h3>Classes</h3>
+                <div class="displayTable">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Class ID</th>
+                                <th>Course Code</th>
+                                <th>Grade Section</th>
+                                <th>Instructor Username</th>
+                                <th>Day</th>
+                                <th>Start Time</th>
+                                <th>End Time</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin_tableclasses">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Registration</h2>
+            <div class="tab-container" role="tablist">
+                <button class="tab-button active" data-tab="guards" role="tab">Guards</button>
+                <button class="tab-button" data-tab="teachers" role="tab">Teachers</button>
+                <button class="tab-button" data-tab="admins" role="tab">Admins</button>
+                <button class="tab-button" data-tab="students" role="tab">Students</button>
+            </div>
+            <div class="tab-content active" data-tab="guards" role="tabpanel">
+                <h3>Role of Guards</h3>
+                <p>Guards scan each registered students RFIDs with a physical device supported by Attendify. Once scanned, the basic information will show on their screen to ensure validity & avoid proxy attendance.</p>
+                <form action="">
+                    <input type="text" name="" id="" placeholder="Guards Name">
+                    <input type="text" name="" id="" placeholder="Password">
+                </form>
+            </div>
+            <div class="tab-content" data-tab="teachers" role="tabpanel">
+                <h3>Teachers</h3>
+            </div>
+            <div class="tab-content" data-tab="admins" role="tabpanel">
+                <h3>Admins</h3>
+            </div>
+            <div class="tab-content" data-tab="students" role="tabpanel">
+                <h3>Students</h3>
+            </div>
+        </section>
+    </main>
+</body>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.tab-container').forEach(container => {
+    container.addEventListener('click', event => {
+      if (event.target.matches('.tab-button')) {
+        const selectedTab = event.target.getAttribute('data-tab');
+        const section = event.target.closest('section');
+
+        // Remove active classes from all buttons and contents in this section
+        section.querySelectorAll('.tab-button').forEach(button => {
+          button.classList.remove('active');
+          button.setAttribute('aria-selected', 'false');
+        });
+        section.querySelectorAll('.tab-content').forEach(content => {
+          content.classList.remove('active');
+        });
+
+        // Activate the clicked tab and corresponding content
+        event.target.classList.add('active');
+        event.target.setAttribute('aria-selected', 'true');
+        section.querySelector(`.tab-content[data-tab="${selectedTab}"]`).classList.add('active');
+      }
+    });
+  });
+});
+
+async function admins_me() {
+    const response = await fetch('/admins/me')
+    const data = await response.json()
+
+    document.getElementById('admin_full_name').textContent = data.fullname[0].full_name
+}
+
+admins_me()
+
+async function admins_api() {
+    const response = await fetch('/admins/api')
+    const data  = await response.json()
+
+    data.admin_users.forEach((eachData, index) => {
+        document.getElementById('admin_tableuser').innerHTML += `
+        <tr>
+            <td>${index + 1}</td>
+            <td>${eachData.username}</td>
+            <td>${eachData.full_name}</td>
+            <td>${eachData.role}</td>
+        </tr>
+        `;
+    });
+
+    data.admin_students.forEach((eachData, index) => {
+        document.getElementById('admin_tablestudents').innerHTML += `
+        <tr>
+            <td>${index + 1}</td>
+            <td>${eachData.student_id}</td>
+            <td>${eachData.full_name}</td>
+            <td>${eachData.rfid}</td>
+            <td>${eachData.is_regular}</td>
+            <td>${eachData.grade_section}</td>
+            <td>${eachData.profile_image}</td>
+            <td>${eachData.guardian_contact}</td>
+        </tr>
+        `;
+    });
+
+    data.admin_student_classes.forEach((eachData, index) => {
+        document.getElementById('admin_tablestudent_classes').innerHTML += `
+        <tr>
+            <td>${index + 1}</td>
+            <td>${eachData.student_id}</td>
+            <td>${eachData.class_id}</td>
+            <td>${eachData.enrollment_type}</td>
+            <td>${eachData.enrollment_date}</td>
+        </tr>
+        `;
+    });
+
+    data.admin_courses.forEach((eachData, index) => {
+        document.getElementById('admin_tablecourses').innerHTML += `
+        <tr>
+            <td>${index + 1}</td>
+            <td>${eachData.course_code}</td>
+            <td>${eachData.course_name}</td>
+        </tr>
+        `;
+    });
+
+    data.admin_classes.forEach((eachData, index) => {
+        document.getElementById('admin_tableclasses').innerHTML += `
+        <tr>
+            <td>${index + 1}</td>
+            <td>${eachData.class_id}</td>
+            <td>${eachData.course_code}</td>
+            <td>${eachData.grade_section}</td>
+            <td>${eachData.teacher_username}</td>
+            <td>${eachData.day}</td>
+            <td>${eachData.start_time}</td>
+            <td>${eachData.end_time}</td>
+        </tr>
+        `;
+    });
+}
+
+admins_api()
+</script>
+</html>

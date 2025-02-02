@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="eric meyers.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h2>Attendify</h2>
+        <a class="button" href="/logout">Sign Out</a>
+    </header>
+    <main>
+        <div class="hero">
+            <h1><span id="instructor_full_name"></span></h1>
+            <div class="flex">
+                <div class="svg_verified"></div>
+                <p>Verified Teacher</p>
+            </div>
+        </div>
+
+        <section id="banner" class="banner">
+            <div class="stagePrompt">
+                <div class="svg_welcome"></div>
+                <h2>Welcome to</h2>
+                <h1>Attendify!</h1>
+                <p>If you are familiar with using Notion, you'll definitely feel at home, There were no frameworks used, to ensure lightness of the site :></p>
+                <button onclick="dismissBanner()">Got it, Thanks!</button>
+            </div>
+        </section>
+
+        <!-- <section>
+            <div id="widget_alert">
+                <div class="flex">
+                    <div class="svg_alert"></div>
+                    <h3>Class Suspension Notice</h3>
+                </div>
+                <p>Issued Class Suspension as of 1:04 pm, Students must scan their RFIDs upon exist to notify their parents.</p>
+            </div>
+        </section> -->
+
+        <section>
+            <h2>Ongoing</h2>
+            <div id="isFreeTime" class="stagePrompt hidden">
+                <div class="svg_noClasses"></div>
+                <small>No ongoing classes right now</small>
+            </div>
+
+            <div id="isFreeTimeC">
+                <div id="widget_ongoing">
+                    <div>
+                        <div id="widget_ongoing_section">MAWD</div>
+                        <div id="widget_ongoing_grade">12</div>
+                    </div>
+                    <div>
+                        <div id="widget_ongoing_course">Inquiries, Investigation, Immersion</div>
+                        <div id="widget_ongoing_schedule">10:30 am to 12 pm</div>
+                    </div>
+                </div>
+                <h3>Students</h3>
+                <div class="displayTable">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Student</th>
+                                <th>Attendance</th>
+                                <th>Time In</th>
+                                <th>Grade Section</th>
+                                <th>Student ID</th>
+                            </tr>
+                        </thead>
+                        <tbody id="instructor_ongoingStudents">
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Schedules</h2>
+            <div class="displayTable">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Course</th>
+                            <th>Start Time</th>
+                            <th>End Time</th>
+                        </tr>
+                    </thead>
+                    <tbody id="instructor_schedule">
+                        <!-- instrutor_schedule filled with SQL -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section>
+            <h2>Monthly Attendance</h2>
+            <div class="stagePrompt">
+                <div class="svg_wait"></div>
+                <small>Work in progress :></small>
+            </div>
+        </section>
+
+        <section>
+            <div class="textToSVG">
+                <div>
+                    <h2>Exporting Data</h2>
+                    <p>You can download a CSV copy of your students attendance records on the selected course here, note that the courses you're only incharge of is shown.</p>
+                </div>
+                <div class="svg_attendance"></div>
+            </div>
+            <h3>Courses</h3>
+            <a href="#">Inquiries, Investigation, Immersion</a>
+            <a href="#">Work Immersion</a>
+        </section>
+    </main>
+</body>
+<script>
+    if (localStorage.getItem('bannerDismissed') === 'true') {
+      document.getElementById('banner').classList.add('hidden');
+    }
+    
+    function dismissBanner() {
+      document.getElementById('banner').classList.add('hidden');
+      localStorage.setItem('bannerDismissed', 'true');
+    }
+
+    async function instructors_me() {
+        const response = await fetch('/instructors/me')
+        const data = await response.json()
+
+        document.getElementById('instructor_full_name').textContent = data.fullname[0].full_name
+
+        const tbody = document.getElementById('instructor_schedule')
+
+        data.schedule.forEach((scheduleItem, index) => {
+            tbody.innerHTML += `
+            <tr>
+                <td>${index + 1}</td> 
+                <td>
+                    <p>${scheduleItem.course_name}</p>
+                    <div class="stub">${scheduleItem.grade_section}</div>
+                </td>
+                <td>${scheduleItem.start_time}</td>
+                <td>${scheduleItem.end_time}</td>
+            </tr>
+            `;
+        });
+    }
+    async function instructors_ongoing() {
+    const response = await fetch('/instructors/ongoing');
+    const data = await response.json();
+
+    if (!data.message === "No ongoing class found.") {
+        // Update class info
+        document.getElementById('widget_ongoing').innerHTML = `
+            <div>
+                <div id="widget_ongoing_section">${data.class.grade_section.split("-")[1]}</div>
+                <div id="widget_ongoing_grade">${data.class.grade_section.split("-")[0]}</div>
+            </div>
+            <div>
+                <div id="widget_ongoing_course">${data.class.subject}</div>
+                <div id="widget_ongoing_schedule">${data.class.start_time} to ${data.class.end_time}</div>
+            </div>
+        `;
+
+        // Single table population
+        const tbody = document.getElementById('instructor_ongoingStudents');
+        tbody.innerHTML = data.students.map((student, index) => {
+        const statusOptions = ['present', 'absent', 'late', 'cutting', 'excused'];
+        const statusSelect = `
+            <select class="status-select" data-student-id="${student.student_id}">
+                ${statusOptions.map(option => `
+                    <option value="${option}" ${student.status === option ? 'selected' : ''}>
+                        ${option}
+                    </option>
+                `).join('')}
+            </select>
+        `;
+
+        return `
+            <tr>
+                <td>${index + 1}</td>
+                <td>${student.full_name}</td>
+                <td>${statusSelect}</td>
+                <td>${student.time_in || 'Not Present'}</td>
+                <td>12-MAWD</td>
+                <td>02000376724</td>
+            </tr>
+            `;
+        }).join('');
+
+        const statusSelects = document.querySelectorAll('.status-select');
+        statusSelects.forEach(select => {
+            select.addEventListener('change', async (event) => {
+        const studentId = event.target.dataset.studentId;
+        const newStatus = event.target.value;
+        const classId = data.class.class_id; // Access class_id from data.class
+
+        console.log("Sending:", { student_id: studentId, status: newStatus, class_id: classId });
+
+        const updateResponse = await fetch('/instructors/update_status', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ student_id: studentId, status: newStatus, class_id: classId })
+        });
+                // No error handling for now
+                console.log(`Status for student ${studentId} updated to ${newStatus}`);
+            });
+        });
+    } else {
+        document.getElementById('isFreeTime').classList.toggle('hidden')
+        document.getElementById('isFreeTimeC').classList.toggle('hidden')
+    }
+}
+
+    instructors_me()
+    instructors_ongoing()
+</script>
+</html>

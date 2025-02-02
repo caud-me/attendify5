@@ -1,0 +1,356 @@
+/* * {
+    line-height: 1.4;
+} */
+
+html {
+    background-color: #ededed;
+    color: #353535;
+    font-size: 14px;
+}
+
+main {
+    max-width: 768px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    padding: 1rem;
+}
+
+* {
+    font-family: 'Segoe UI Variable Small';
+}
+
+h1 {
+    font-family: 'Segoe UI Variable Display';
+    font-size: clamp(3rem, 4vw, 5rem);
+    letter-spacing: -.05em;
+    line-height: 1;
+    margin: .25em 0;
+}
+
+h2 {
+    font-family: 'Segoe UI Variable Display';
+    letter-spacing: -.025em;
+    line-height: 2;
+    font-size: 1.5rem;
+}
+
+h3 {
+    font-family: 'Segoe UI Variable Small Semibold';
+    color: #808080;
+    line-height: 2;
+}
+
+.hero {
+    height: 33.3vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+th {
+    text-align: start;
+    font-weight: initial;
+    color: #808080;
+    background-color: #80808010;
+}
+
+td, th {
+    padding: .5rem 1rem;
+    border: solid 1px #80808020;
+    min-width: 3rem;
+}
+
+.displayTable {
+    overflow-x: auto;
+    margin: .5rem 0;
+}
+
+table {
+    border-collapse: collapse;
+    white-space: nowrap;
+}
+
+.stagePrompt {
+    padding: 1rem;
+    display: grid;
+    place-items: center;
+    background-color: #80808010;
+    border: solid 1px #80808020;
+    margin: .5rem 0;
+    text-align: center;
+}
+
+.stagePromptAlt {
+    display: grid;
+    place-items: center;
+    margin: .5rem 0;
+    text-align: center;
+}
+
+td, th, small {
+    font-size: .875rem;
+}
+
+small {
+    color: #808080;
+}
+
+.svg_noClasses {
+    height: 256px;
+    width: 256px;
+    background-image: url('Chill-Time.svg');
+    background-size: cover;
+}
+
+.svg_intro {
+    height: 256px;
+    width: 256px;
+    background-image: url('Fast-Internet.svg');
+    background-size: cover;
+}
+
+.svg_welcome {
+    height: 256px;
+    width: 256px;
+    background-image: url('Christmas-Collection\ n5.svg');
+    background-size: cover;
+}
+
+.svg_attendance {
+    height: 128px;
+    width: 128px;
+    background-image: url('Flag.svg');
+    background-size: cover;
+}
+
+.svg_wait {
+    height: 256px;
+    width: 256px;
+    background-image: url('Loading-Time.svg');
+    background-size: cover;
+}
+
+.svg_verified {
+    height: 24px;
+    width: 24px;
+    background-image: url('verified.svg');
+    background-size: cover;
+}
+
+.svg_alert {
+    height: 24px;
+    width: 24px;
+    background-image: url('alert.svg');
+    background-size: cover;
+}
+
+.flex {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+/* 
+    <div id="widget_ongoing">
+        <div>
+            <div id="widget_ongoing_section">STEM</div>
+            <div id="widget_ongoing_grade">12</div>
+        </div>
+        <div>
+            <div id="widget_ongoing_course">Entrepreneurship</div>
+            <div id="widget_ongoing_schedule">10:30am to 12pm</div>
+        </div>
+    </div>
+*/
+#widget_ongoing {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    margin: .5rem 0;
+}
+
+#widget_ongoing > :first-child {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: .25rem;
+    background-color: #353535;
+    color: #ededed;
+    border-radius: .25rem;
+    padding: .5rem;
+}
+
+#widget_ongoing > :first-child > :nth-child(1) {
+    line-height: .9;
+    font-size: .875rem;
+}
+
+#widget_ongoing > :first-child > :nth-child(2) {
+    line-height: .9;
+    font-size: 1.5rem;
+    font-weight: bold;
+    letter-spacing: -.05em;
+}
+
+#widget_ongoing > :last-child > :nth-child(2) {
+    font-size: .875rem;
+    color: #808080;
+}
+
+select {
+    background-color: #80808010;
+    border: solid 1px #80808020;
+    padding: .25rem;
+    border-radius: .25rem;
+}
+
+#widget_alert {
+    padding: .5rem;
+    background-color: #FF404010;
+    border: solid 1px #FF404020;
+}
+
+#widget_alert > * {
+    color: #AA4040;
+}
+
+#widget_alert > * > *{
+    color: #AA4040;
+}
+
+.stub {
+    display: inline-block;
+    background-color: #353535;
+    color: #ededed;
+    padding: .125rem .5rem;
+    margin: .2rem 0;
+    font-weight: 500;
+    font-size: .75rem;
+}
+
+.textToSVG {
+    display: flex;
+}
+
+.textToSVG > :last-child {
+    flex-shrink: 0;
+}
+
+a {
+    text-decoration: none;
+    display: block;
+    color: #4040EE;
+}
+
+a::after {
+    content: ' ↗';
+}
+
+@media screen and (max-width: 768px) {
+    .textToSVG {
+        flex-direction: column-reverse;
+    }
+
+    .textToSVG > :last-child {
+        align-self: flex-end;
+    }
+
+    .stagePrompt {
+        text-align: start;
+    }
+}
+
+pre {
+    background-color: #80808010;
+    border: solid 1px #80808020;
+    font-family: 'Consolas', Courier, monospace;
+    padding: .5rem;
+}
+
+/* Tab styling */
+.tab-container {
+    border-bottom: 1px solid #80808020;
+    margin: .2rem 0 .8rem 0;
+}
+
+.tab-button {
+    cursor: pointer;
+    padding: .5rem;
+    background: transparent;
+    font-size: .875rem;
+    color: #353535;
+    border-radius: 0;
+    margin: 0;
+}
+
+.tab-button.active {
+    border-bottom: 3px solid #353535;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+
+
+button {
+    background-color: #353535;
+    color: #ededed;
+    padding: .5rem;
+    border-radius: .5rem;
+    margin: .5rem 0;
+}
+
+input[type="text"], input[type="password"] {
+    line-height: 2;
+    padding: 0 .5rem;
+    background-color: #80808020;
+    border-bottom: solid 1px #80808020;
+}
+
+input[type="text"]:focus, input[type="password"]:focus {
+    border-bottom: solid 1px #808080;
+}
+
+form {
+    margin: .5rem 0;
+}
+
+header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    padding: .5rem 1rem;
+    align-items: center;
+    background-color: #ededed;
+    border-bottom: solid 1px #80808010;
+}
+
+header > h2 {
+    line-height: initial;
+    font-size: 1.25rem;
+    letter-spacing: initial;
+}
+
+a.button {
+    display: inline-block;
+    background-color: #353535;
+    color: #ededed;
+    padding: .5rem;
+    border-radius: .5rem;
+    font-size: .875rem;
+    margin: .2rem 0;
+}
+
+.hidden {
+    display: none;
+}
