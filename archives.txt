@@ -1,0 +1,24 @@
+        <button id="notifyBtn">Start Notifications</button>
+
+        <script>
+          // Function to send the notification
+          function sendNotification() {
+            if ('Notification' in window && Notification.permission === 'granted') {
+              new Notification('Automatic Notification', {
+                body: 'This notification appears every 10 seconds!',
+                icon: 'https://via.placeholder.com/150', // Optional icon
+              });
+            } else {
+              alert('Notifications not enabled.');
+            }
+          }
+        
+          // Start sending notifications automatically every 10 seconds
+          document.getElementById('notifyBtn').addEventListener('click', () => {
+            if (Notification.permission === 'granted') {
+              setInterval(sendNotification, 10000); // Trigger every 10 seconds
+              alert('Notifications will now appear every 10 seconds!');
+            }
+          });
+        </script>
+        
