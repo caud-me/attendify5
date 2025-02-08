@@ -21,6 +21,25 @@ const requireRole = (roles) => (req, res, next) => {
     next();
   };
 
+function generatePassword(length) {
+    const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    let password = "";
+    for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * charset.length);
+        password += charset[randomIndex];
+    }
+    return password;
+}
+
+function toUsername(fullName) {
+    return fullName
+        .replace(/[^a-zA-Z\s]/g, '') // regex!!!
+        .trim()
+        .split(/\s+/) // regex-mini
+        .map(name => name.toLowerCase())
+        .join('.');
+}
+
 const pool = mysql.createPool({
     host: 'localhost',
     user: 'root',
@@ -123,12 +142,12 @@ app.get('/instructors/me', requireRole(['teacher']), async (req, res) => {
 app.get('/instructors/ongoing', async (req, res) => {
     const username = req.session.user.username;
     // hardcode for testing
-    // const dateString = req.query.date || '2025-01-27';
-    // const timeString = req.query.time || '09:30:00';
+    const dateString = req.query.date || '2025-02-10';
+    const timeString = req.query.time || '17:00:00';
 
-    const now = new Date();
-    const dateString = now.toISOString().split('T')[0]; // e.g., '2025-02-02'
-    const timeString = now.toTimeString().split(' ')[0]; // e.g., '00:51:00'
+    // const now = new Date();
+    // const dateString = now.toISOString().split('T')[0]; // e.g., '2025-02-02'
+    // const timeString = now.toTimeString().split(' ')[0]; // e.g., '00:51:00'
 
     const date = new Date(dateString + 'T' + timeString);
     const dayName = date.toLocaleDateString('en-US', { weekday: 'short' });
@@ -282,3 +301,125 @@ app.get('/admins/api', requireRole(['admin']), async (req, res) => {
 
     res.json(result);
 })
+
+app.post('/admins/createGuard', requireRole(['admin']), async (req, res) => {
+    const {fullname} = req.body;
+
+    const username = toUsername(fullname);
+    const password = generatePassword(12);
+
+    try {
+        const [result] = await pool.execute(
+            `INSERT INTO users (username, full_name, password, role) VALUES (?, ?, ?, ?)`,
+            [username, fullname, password, 'guard']
+        );
+    
+        res.json({ message: 'User created', fullname, password });
+        console.log(`[Attendify] Admin created guard ${username}`)
+    } catch (error) {
+        res.json({ message: 'Either duplicate entry, or something is wrong'});
+    }
+});
+
+app.post('/admins/createTeacher', requireRole(['admin']), async (req, res) => {
+    const {fullname} = req.body;
+
+    const username = toUsername(fullname);
+    const password = generatePassword(12);
+
+    try {
+        const [result] = await pool.execute(
+            `INSERT INTO users (username, full_name, password, role) VALUES (?, ?, ?, ?)`,
+            [username, fullname, password, 'teacher']
+        );
+    
+        res.json({ message: 'User created', fullname, password });
+        console.log(`[Attendify] Admin created teacher ${username}`)
+    } catch (error) {
+        res.json({ message: 'Either duplicate entry, or something is wrong'});
+    }
+});
+
+app.post('/admins/createAdmin', requireRole(['admin']), async (req, res) => {
+    const {fullname} = req.body;
+
+    const username = toUsername(fullname);
+    const password = generatePassword(12);
+
+    try {
+        const [result] = await pool.execute(
+            `INSERT INTO users (username, full_name, password, role) VALUES (?, ?, ?, ?)`,
+            [username, fullname, password, 'admin']
+        );
+    
+        res.json({ message: 'User created', fullname, password });
+        console.log(`[Attendify] Admin created admin ${username}`)
+    } catch (error) {
+        res.json({ message: 'Either duplicate entry, or something is wrong'});
+    }
+});
+
+app.post('/admins/addCourse', requireRole(['admin']), async (req, res) => {
+    const {coursecode, coursename} = req.body;
+
+    try {
+        const [result] = await pool.execute(
+            `INSERT INTO courses (course_code, course_name) VALUES (?, ?)`,
+            [coursecode, coursename]
+        );
+    
+        res.json({ message: 'Course Created'});
+        console.log(`[Attendify] Admin created course ${coursecode, coursename}`)
+        console.log(`[Attendify] ${coursecode, coursename} requires an instructor, set up by adding a class`)
+    } catch (error) {
+        res.json({ message: 'Either duplicate entry, or something is wrong'});
+    }
+});
+
+/* <input type="text" name="coursecode" placeholder="e.g. SHS1000" required><br>
+<small>For Grade Section?</small><br>
+<input type="text" name="gradesection" placeholder="e.g. 12-STEM" required><br>
+<small>Whos the Instructor for this course?</small><br>
+<input type="text" name="username" placeholder="e.g. johnny.appleseed" required><br>
+<h3>Schedule</h3>
+<small>Day of class</small><br>
+<select name="day" title="day">
+    <option value="Mon" default>Mon</option>
+    <option value="Tue">Tue</option>
+    <option value="Wed">Wed</option>
+    <option value="Thu">Thu</option>
+    <option value="Fri">Fri</option>
+</select><br>
+<small>Start Time</small><br>
+<input type="text" name="starttime" placeholder="e.g. 10:30" required><br>
+<small>End Time</small><br>
+<input type="text" name="endtime" placeholder="e.g. 10:30" required><br> */
+
+app.post('/admins/addClass', requireRole(['admin']), async (req, res) => {
+    const { coursecode, gradesection, username, day, starttime, endtime } = req.body;
+
+    // generate class_id in the format:: grade_section-course_code-day-start_time
+    const CLASSID = `${gradesection}-${coursecode}-${day.toUpperCase()}-${starttime.replace(':', '')}`;
+
+    const pattern = /^\d{2}-[A-Z]+-[A-Z0-9]+-[A-Z]{3}-\d{4}$/;
+
+    // validation regex!!!!
+    if (!pattern.test(CLASSID)) {
+        console.log(CLASSID)
+        return res.status(400).json({ message: 'Invalid class_id format. Follow: 12-MAWD-APPLIED1006-MON-0900' });
+    }
+
+    try {
+        const [result] = await pool.execute(
+            `INSERT INTO classes (class_id, course_code, grade_section, teacher_username, day, start_time, end_time) VALUES (?, ?, ?, ?, ?, ?, ?)`,
+            [CLASSID, coursecode, gradesection, username, day, starttime, endtime]
+        );
+
+        res.json({ message: 'Class Created', class_id: CLASSID });
+        console.log(`[Attendify] Admin created class ${CLASSID}`);
+        console.log(`[Attendify] ${username} is now incharge of course ${coursecode}`)
+    } catch (error) {
+        console.error(error);
+        res.json({ message: 'Either duplicate entry, or something is wrong' });
+    }
+});

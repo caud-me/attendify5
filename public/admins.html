@@ -141,24 +141,85 @@
             <div class="tab-content active" data-tab="guards" role="tabpanel">
                 <h3>Role of Guards</h3>
                 <p>Guards scan each registered students RFIDs with a physical device supported by Attendify. Once scanned, the basic information will show on their screen to ensure validity & avoid proxy attendance.</p>
-                <form action="">
-                    <input type="text" name="" id="" placeholder="Guards Name">
-                    <input type="text" name="" id="" placeholder="Password">
+                <form action="/admins/createGuard" method="post">
+                    <small>Complete Name</small><br>
+                    <input type="text" name="fullname" placeholder="Johnny Appleseed" required><br>
+                    <button type="submit">Create Guard Account</button>
                 </form>
             </div>
             <div class="tab-content" data-tab="teachers" role="tabpanel">
                 <h3>Teachers</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis voluptatibus dicta qui quod unde. Unde asperiores delectus aliquam. Illum quos nulla at id, iste voluptatibus doloremque cum repellat culpa tenetur.</p>
+                <form action="/admins/createTeacher" method="post">
+                    <small>Complete Name</small><br>
+                    <input type="text" name="fullname" placeholder="Johnny Appleseed" required><br>
+                    <button type="submit">Create Teacher Account</button>
+                </form>
             </div>
             <div class="tab-content" data-tab="admins" role="tabpanel">
                 <h3>Admins</h3>
+                <p>Admins have full access to the system, the records, automation and database</p>
+                <form action="/admins/createAdmin" method="post">
+                    <small>Complete Name</small><br>
+                    <input type="text" name="fullname" placeholder="Johnny Appleseed" required><br>
+                    <button type="submit">Create Admin Account</button>
+                </form>
             </div>
             <div class="tab-content" data-tab="students" role="tabpanel">
                 <h3>Students</h3>
+                <h1>students are HARD to configure</h1>
             </div>
+        </section>
+
+        <section>
+            <h2>Courses*</h2>
+            <form action="/admins/addCourse" method="post">
+                <small>Course Code (Provided by School)</small><br>
+                <input type="text" name="coursecode" placeholder="e.g. SHS1000" required><br>
+                <small>Course Description</small><br>
+                <input type="text" name="coursename" placeholder="e.g. Artificial Intelligence IV" required><br>
+                <button type="submit">+ Add Course</button>
+            </form>
+        </section>
+
+        <section>
+            <h2>Classes</h2>
+            <p>The same teacher may have multiple classes as long as the schedules don't interfere</p>
+            <form action="/admins/addClass" method="post">
+                <h3>General</h3>
+                <small>What Subject? In Course Code (Provided by School)</small><br>
+                <input type="text" name="coursecode" placeholder="e.g. SHS1000" required><br>
+                <small>For Grade Section?</small><br>
+                <input type="text" name="gradesection" placeholder="e.g. 12-STEM" required><br>
+                <small>Whos the Instructor for this course?</small><br>
+                <input type="text" name="username" placeholder="e.g. johnny.appleseed" required><br>
+                <h3>Schedule</h3>
+                <small>Day of class</small><br>
+                <select name="day" title="day">
+                    <option value="Mon" default>Mon</option>
+                    <option value="Tue">Tue</option>
+                    <option value="Wed">Wed</option>
+                    <option value="Thu">Thu</option>
+                    <option value="Fri">Fri</option>
+                </select><br>
+                <small>Start Time</small><br>
+                <input type="text" name="starttime" placeholder="e.g. 10:30" required><br>
+                <small>End Time</small><br>
+                <input type="text" name="endtime" placeholder="e.g. 10:30" required><br>
+                <button type="submit">+ Add Class</button>
+            </form>
         </section>
     </main>
 </body>
 <script>
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".displayTable").forEach(element => {
+        element.addEventListener("click", () => {
+            element.classList.toggle("immersive");
+        });
+    });
+});
+
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.tab-container').forEach(container => {
     container.addEventListener('click', event => {
@@ -263,4 +324,15 @@ async function admins_api() {
 
 admins_api()
 </script>
+<script>
+    function autoResizeInput(input) {
+      input.style.width = "1px"; // Reset width to get accurate measurement
+      input.style.width = (input.value.length + 1) + "ch";
+    }
+  
+    document.querySelectorAll('input[type="text"]').forEach(input => {
+      input.addEventListener("input", () => autoResizeInput(input));
+      autoResizeInput(input); // Initialize width on page load
+    });
+  </script>
 </html>

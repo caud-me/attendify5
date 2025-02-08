@@ -43,12 +43,12 @@
 
         <section>
             <h2>Ongoing</h2>
-            <div id="isFreeTime" class="stagePrompt hidden">
+            <div id="isFreeTime" class="stagePrompt">
                 <div class="svg_noClasses"></div>
                 <small>No ongoing classes right now</small>
             </div>
 
-            <div id="isFreeTimeC">
+            <div id="isFreeTimeC" class="hidden">
                 <div id="widget_ongoing">
                     <div>
                         <div id="widget_ongoing_section">MAWD</div>
@@ -156,23 +156,24 @@
     async function instructors_ongoing() {
     const response = await fetch('/instructors/ongoing');
     const data = await response.json();
+    console.log(data)
 
-    if (!data.message === "No ongoing class found.") {
-        // Update class info
-        document.getElementById('widget_ongoing').innerHTML = `
-            <div>
-                <div id="widget_ongoing_section">${data.class.grade_section.split("-")[1]}</div>
-                <div id="widget_ongoing_grade">${data.class.grade_section.split("-")[0]}</div>
-            </div>
-            <div>
-                <div id="widget_ongoing_course">${data.class.subject}</div>
-                <div id="widget_ongoing_schedule">${data.class.start_time} to ${data.class.end_time}</div>
-            </div>
-        `;
+    if (data.message !== "No ongoing class found.") {
+    // Update class info
+    document.getElementById('widget_ongoing').innerHTML = `
+        <div>
+            <div id="widget_ongoing_section">${data.class.grade_section.split("-")[1]}</div>
+            <div id="widget_ongoing_grade">${data.class.grade_section.split("-")[0]}</div>
+        </div>
+        <div>
+            <div id="widget_ongoing_course">${data.class.subject}</div>
+            <div id="widget_ongoing_schedule">${data.class.start_time} to ${data.class.end_time}</div>
+        </div>
+    `;
 
-        // Single table population
-        const tbody = document.getElementById('instructor_ongoingStudents');
-        tbody.innerHTML = data.students.map((student, index) => {
+    // Populate students
+    const tbody = document.getElementById('instructor_ongoingStudents');
+    tbody.innerHTML = data.students.map((student, index) => {
         const statusOptions = ['present', 'absent', 'late', 'cutting', 'excused'];
         const statusSelect = `
             <select class="status-select" data-student-id="${student.student_id}">
@@ -193,33 +194,39 @@
                 <td>12-MAWD</td>
                 <td>02000376724</td>
             </tr>
-            `;
-        }).join('');
+        `;
+    }).join('');
 
-        const statusSelects = document.querySelectorAll('.status-select');
-        statusSelects.forEach(select => {
-            select.addEventListener('change', async (event) => {
-        const studentId = event.target.dataset.studentId;
-        const newStatus = event.target.value;
-        const classId = data.class.class_id; // Access class_id from data.class
+    // Update visibility
+    document.getElementById('isFreeTime').classList.add('hidden');
+    document.getElementById('isFreeTimeC').classList.remove('hidden');
 
-        console.log("Sending:", { student_id: studentId, status: newStatus, class_id: classId });
+    // Add event listeners
+    document.querySelectorAll('.status-select').forEach(select => {
+        select.addEventListener('change', async (event) => {
+            const studentId = event.target.dataset.studentId;
+            const newStatus = event.target.value;
+            const classId = data.class.class_id;
 
-        const updateResponse = await fetch('/instructors/update_status', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ student_id: studentId, status: newStatus, class_id: classId })
-        });
-                // No error handling for now
-                console.log(`Status for student ${studentId} updated to ${newStatus}`);
+            console.log("Sending:", { student_id: studentId, status: newStatus, class_id: classId });
+
+            await fetch('/instructors/update_status', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ student_id: studentId, status: newStatus, class_id: classId })
             });
+
+            console.log(`Status for student ${studentId} updated to ${newStatus}`);
         });
-    } else {
-        document.getElementById('isFreeTime').classList.toggle('hidden')
-        document.getElementById('isFreeTimeC').classList.toggle('hidden')
+    });
+
+} else {
+        document.getElementById('isFreeTime').classList.remove('hidden');
+        document.getElementById('isFreeTimeC').classList.add('hidden');
     }
+
 }
 
     instructors_me()

@@ -63,11 +63,6 @@ td, th {
     min-width: 3rem;
 }
 
-.displayTable {
-    overflow-x: auto;
-    margin: .5rem 0;
-}
-
 table {
     border-collapse: collapse;
     white-space: nowrap;
@@ -353,4 +348,27 @@ a.button {
 
 .hidden {
     display: none;
+}
+
+.displayTable {
+    overflow-x: auto;
+    margin: .5rem 0;    
+    transition: .5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+
+.displayTable.immersive {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    background-color: #ededed;
+    z-index: 9999;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+input[type="text"] {
+    min-width: 16rem;
 }
