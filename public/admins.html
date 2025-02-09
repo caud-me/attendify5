@@ -168,6 +168,93 @@
             <div class="tab-content" data-tab="students" role="tabpanel">
                 <h3>Students</h3>
                 <h1>students are HARD to configure</h1>
+                <form id="studentForm" action="/admins/createStudent" method="POST">
+                    <h3>Registering Student</h3>
+                
+                    <label>Student ID (Provided by School)</label>
+                    <input type="text" name="student_id" placeholder="e.g. 02000376725" required>
+                
+                    <label>Complete Name</label>
+                    <input type="text" name="full_name" placeholder="e.g. Johnny Appleseed" required>
+                
+                    <label>RFID Number (Unique)</label>
+                    <input type="text" name="rfid" placeholder="e.g. RFID0001" required>
+                
+                    <label>Is the student Regular or Irregular?</label>
+                    <select name="is_regular" id="is_regular" required onchange="toggleGradeSection()">
+                        <option value="1">Regular Student</option>
+                        <option value="0">Irregular Student</option>
+                    </select>
+                
+                    <div id="regularSection">
+                        <label>Grade Section (Only for Regular Students)</label>
+                        <input type="text" name="grade_section" id="grade_section" placeholder="e.g. 12-MAWD" required>
+                    </div>
+                
+                    <div id="irregularSection" style="display: none;">
+                        <label>Select Subjects (For Irregular Students)</label>
+                        <div id="subjectList">Loading subjects...</div>
+                    </div>
+                
+                    <label>Parent/Guardian Contact Number</label>
+                    <input type="text" name="guardian_contact" placeholder="e.g. +639261234567" required>
+                
+                    <label>(Advanced) Student Profile Image</label>
+                    <input type="file" name="profile_image" accept="image/*">
+                
+                    <button type="submit">+ Enroll Student to Attendify</button>
+                </form>
+                
+                <script>
+                    function toggleGradeSection() {
+                        const isRegular = document.getElementById('is_regular').value == "1";
+                        const gradeSectionInput = document.getElementById('grade_section');
+                        const irregularSection = document.getElementById('irregularSection');
+
+                        if (isRegular) {
+                            gradeSectionInput.removeAttribute('disabled');
+                            gradeSectionInput.setAttribute('required', 'true');
+                            irregularSection.style.display = "none";
+                        } else {
+                            gradeSectionInput.setAttribute('disabled', 'true');
+                            gradeSectionInput.removeAttribute('required');
+                            irregularSection.style.display = "block";
+                            fetchSubjects(); // Load subjects when Irregular is selected
+                        }
+                    }
+
+
+
+                    async function fetchSubjects() {
+                        try {
+                            const response = await fetch("/admins/api"); // Fetch all admin data
+                            const data = await response.json();
+
+                            if (data.admin_classes) {
+                                const subjectListDiv = document.getElementById("subjectList");
+                                subjectListDiv.innerHTML = ""; // Clear loading text
+                                
+                                data.admin_classes.forEach((subject) => {
+                                    const checkbox = document.createElement("input");
+                                    checkbox.type = "checkbox";
+                                    checkbox.name = "class_ids";
+                                    checkbox.value = subject.class_id;
+
+                                    const label = document.createElement("label");
+                                    label.textContent = `${subject.class_id} - ${subject.teacher_username}`;
+                                    
+                                    const div = document.createElement("div");
+                                    div.appendChild(checkbox);
+                                    div.appendChild(label);
+
+                                    subjectListDiv.appendChild(div);
+                                });
+                            }
+                        } catch (error) {
+                            console.error("Error fetching subjects:", error);
+                        }
+                    }
+                </script>
             </div>
         </section>
 
