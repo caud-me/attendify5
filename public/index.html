@@ -4,33 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="eric meyers.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="normalize.css">
+    <link rel="stylesheet" href="nextUI.css">
+    <link rel="stylesheet" href="fun.css">
+
+    <!-- NextUI v0.0.4 -->
+    <link rel="stylesheet" href="normalize.css">
+    <link rel="stylesheet" href="nextUI.css">
 </head>
 <body>
-    <header>
-        <h2>Attendify</h2>
-        <div>
-            <a class="button" href="/checklists">Checklists</a>
-            <a class="button" href="#">Research</a>
-        </div>
-    </header>
-    <main>
+    <main class="splitter">
         <section>
-            <div class="stagePromptAlt">
-                <div class="svg_intro"></div>
-                <p>Attendify</p>
-                <h1>Large scale attendance monitoring, simplified</h1>
-            </div>
+            <img src="resources/intro.svg" alt="" class="scalable">
+            <h4>Attendify</h4>
+            <h1 class="colorfull">Large scale attendance monitoring, simplified.</h1>
+        </section>
 
-            <div class="stagePrompt">
-                <h2>Sign Up</h2>
-                <form action="/Login" method="POST" autocomplete="off">
+        <section>
+            <small>Semantic Version</small>
+            <h3>v0.5.67_dev</h3>
+            <small>v0.5.66_dev - UI Overhaul</small>
+            <div class="wrapped">
+                <h3>Sign Up</h3>
+                <form action="/Login" method="POST" autocomplete="off" class="signIn">
                     <input name="username" placeholder="Your Username..." type="text">
                     <input name="password" placeholder="Your Password..." type="password" >
                     <button type="submit">Submit</button>
                 </form>
             </div>
+            <small>2024 @Attendify, All Rights Reserved</small>
         </section>
     </main>
 </body>

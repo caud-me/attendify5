@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        :root {
+            --color-1: #FC466B;
+        --color-2: #a100ad;
+        --color-3: #d3007f;
+        --color-4: #87003d;
+        --blur: blur(120px);
+        }
+
+
+        html {
+            color: #ededed;
+            font-family: 'Segoe UI Variable Small';
+            font-size: 14px;
+        }
+
+        gradient-container {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        background: var(--color-2);
+        flex-wrap: wrap;
+        overflow: hidden;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: -999;
+        /* animation: hueRotate 10s infinite; */
+        }
+
+        @keyframes hueRotate {
+            0% {
+                filter: hue-rotate(0deg);
+            }
+            100% {
+                filter: hue-rotate(360deg);
+            }
+        }
+
+        h1 {
+            font-family: 'Segoe UI Variable Display';
+            font-weight: bold;
+            font-size: 4rem;
+            letter-spacing: -.05em;
+        }
+
+        gradient-color {
+        width: 50%;
+        height: 50%;
+        display: flex;
+        border-radius: 30% 80% 75% 40% / 40% 40% 70% 50%;
+        animation-name: animate;
+        animation-duration: 5s;
+        animation-timing-function: ease-in-out;
+        animation-iteration-count: infinite;
+        animation-direction: alternate;
+        }
+
+        @keyframes animate {
+        0% {
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 60%;
+            transform: scale(2) rotate(0deg) translate(10%, 10%);
+        }
+        100% {
+            border-radius: 88% 10% 22% 58% / 73% 56% 34% 77%;
+            transform: scale(2) rotate(180deg) translate(10%, -10%);
+        }
+        }
+
+        gradient-color:nth-child(1) {
+        background-color: var(--color-1);
+        animation-direction: backwards;
+        }
+
+        gradient-color:nth-child(2) {
+        background-color: var(--color-2);
+        }
+
+        gradient-color:nth-child(3) {
+        background-color: var(--color-3);
+        animation-direction: backwards;
+        }
+
+        gradient-color:nth-child(4) {
+        background-color: var(--color-4);
+        }
+
+        gradient-backdrop {
+        width: 100%;
+        height: 100%;
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        background: transparent;
+        backdrop-filter: var(--blur);
+        }
+
+        main {
+            width: 768px;
+            margin: 0 auto;
+        }
+
+    </style>
+</head>
+<body>
+    <gradient-container>
+        <gradient-color></gradient-color>
+        <gradient-color></gradient-color>
+        <gradient-color></gradient-color>
+        <gradient-color></gradient-color>
+        <gradient-backdrop></gradient-backdrop>
+      </gradient-container>
+    <main>
+        <h1>Welcome Stranger</h1>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur fugiat ratione quis sit non corporis, odit quos minima nemo cum? Temporibus molestiae sapiente magni. Asperiores in sequi ab voluptates laboriosam.</p>
+        <a href="">Get Started</a>
+    </main>
+</body>
+</html>

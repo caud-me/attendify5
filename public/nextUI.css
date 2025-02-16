@@ -1,0 +1,361 @@
+* {
+    box-sizing: border-box;
+    cursor:default ;
+}
+
+::selection {
+    background-color: #FFFF40;
+    color: #353535;
+}
+
+:root {
+    --ui-white: #ededed;
+    --ui-black: #353535;
+}
+
+html {
+    background-color: #ededed;
+    color: #353535;
+    font-size: 14px;
+}
+
+h1 {
+    font-size: clamp(3rem, 4vw, 5rem);
+    font-family: 'Segoe UI Variable Display';
+    font-weight: bold;
+    letter-spacing: -0.06em;
+    margin: .5em 0;
+}
+
+h2 {
+    font-size: 3rem;
+    font-family: 'Segoe UI Variable Display';
+    font-weight: bold;
+    letter-spacing: -0.06em;
+    margin: .5em 0;
+    transition: .5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+h2:hover {
+    letter-spacing: 0;
+    transition: .5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+h3 {
+    font-size: 1.5rem;
+    font-family: 'Segoe UI Variable Display';
+    font-weight: bold;
+    letter-spacing: -0.03em;
+}
+
+h4 {
+    font-family: 'Segoe UI Variable Text';
+    font-weight: 500;
+    color: #808080;
+}
+
+p {
+    font-family: 'Segoe UI Variable Text';
+}
+
+small {
+    display: block;
+    margin: 1em 0;
+    font-family: 'Segoe UI Variable Small';
+}
+
+main {
+    margin: 0 auto;
+    padding: 1rem;
+    max-width: 768px;
+}
+
+header {
+    height: 33.3vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
+
+.respect {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+
+    > * {
+        margin: 0;
+    }
+}
+
+section {
+    margin: 4rem 0;
+}
+
+.wrapped {
+    padding: 1rem;
+    background-color: #80808010;
+    border: solid 1px #80808020;
+}
+
+.prompting {
+    text-align: center;
+}
+
+button {
+    display: inline-block;
+    font-family: 'Segoe UI Variable Small';
+    color: var(--ui-white);
+    padding: .25rem .75rem;
+    border-radius: .5em;
+    background-color: var(--ui-black);
+    outline: none;
+    border: none;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+}
+
+@keyframes faders {
+    0% { transform: translateY(16px); opacity: 0%;}
+    100% { transform: translateY(0px); opacity: 100%;}
+}
+
+button:hover {
+    animation: moveGradient 2s linear infinite;
+    background-color: #0055ff;
+}
+
+@keyframes moveGradient {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+}
+
+hr {
+    border: 0;
+    border-top: solid 1px #80808020;
+}
+
+a {
+    display: inline-block;
+    font-family: 'Segoe UI Variable Small';
+    text-decoration: none;
+    color: var(--ui-black);
+    padding: .25rem .75rem;
+    border-radius: .5em;
+    border: solid 1px #80808040;
+}
+
+a:hover {
+    background-color: #80808020;
+}
+
+footer {
+    border-top: solid 1px #80808020;
+}
+
+small {
+    display: block;
+    color: #808080;
+}
+
+.scalable {
+    height: 33vh;
+    border: solid 1px transparent;
+}
+
+input, select {
+    outline: none;
+    display: inline-block;
+    font-family: 'Segoe UI Variable Small';
+    text-decoration: none;
+    color: var(--ui-black);
+    padding: .25rem .75rem;
+    border-radius: .5em;
+    border: solid 1px #80808040;
+    background-color: transparent;
+}
+
+.splitter {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    height: 100vh;
+    max-width: inherit;
+    gap: 1rem;
+}
+
+.splitter > * {
+    flex-basis: 50%;
+    margin: 0;
+}
+
+@media screen and (max-width:768px) {
+    .splitter {
+        display: block;
+    }
+    
+    .splitter > :first-child {
+        text-align: center;
+    }
+}
+
+form.signIn {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+/* Tab styling */
+.tab-container {
+    border-bottom: 1px solid #80808020;
+}
+
+.tab-button {
+    all: initial;
+    font-family: 'Segoe UI Variable Small';
+    font-size: .875rem;
+    padding: .5em;
+}
+
+.tab-button:hover {
+    background-color: #80808020;
+}
+
+.tab-button.active {
+    border-bottom: 3px solid #353535;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+    animation: faders .5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.displayTable {
+    overflow-x: auto;
+    margin: .5rem 0;    
+    transition: .5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+table {
+    border-collapse: collapse;
+    white-space: nowrap;
+}
+
+th {
+    text-align: start;
+    font-weight: initial;
+    color: #808080;
+    background-color: #80808010;
+}
+
+td, th {
+    padding: .5rem 1rem;
+    border: solid 1px #80808020;
+    min-width: 3rem;
+}
+
+td, th, small {
+    font-size: .875rem;
+    font-family: 'Segoe UI Variable Small';
+}
+
+td p {
+    margin: 0;
+}
+
+#widget_ongoing {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    margin: .5rem 0;
+    font-family: 'Segoe UI Variable Small';
+}
+
+#widget_ongoing > :first-child {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: .25rem;
+    background-color: #353535;
+    color: #ededed;
+    border-radius: .25rem;
+    padding: .5rem;
+}
+
+#widget_ongoing > :first-child > :nth-child(1) {
+    line-height: .9;
+    font-size: .875rem;
+}
+
+#widget_ongoing > :first-child > :nth-child(2) {
+    line-height: .9;
+    font-size: 1.5rem;
+    font-weight: bold;
+    letter-spacing: -.05em;
+}
+
+#widget_ongoing > :last-child > :nth-child(2) {
+    font-size: .875rem;
+    color: #808080;
+}
+
+.hidden {
+    display: none;
+}
+
+.stub {
+    display: inline-block;
+    background-color: #353535;
+    color: #ededed;
+    padding: .125rem .5rem;
+    margin: .25em 0;
+    font-weight: 500;
+    font-size: .75rem;
+}
+
+main {
+
+}
+
+main {
+    animation: faders 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #80808080;
+    border-radius: 2px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #6b6b6b80;
+  }
+  
+
+  #subjectList > div{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  #subjectList > div > * {
+    margin: 0;
+  }
+
+  #subjectList {
+    padding: 1rem;
+    background-color: #80808010;
+    border: solid 1px #80808020;
+    border-radius: .5rem;
+  }

@@ -4,31 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="eric meyers.css">
-    <link rel="stylesheet" href="style.css">
+    <!-- <link rel="stylesheet" href="eric meyers.css">
+    <link rel="stylesheet" href="style.css"> -->
+
+    <!-- NextUI v0.0.4 -->
+    <link rel="stylesheet" href="normalize.css">
+    <link rel="stylesheet" href="nextUI.css">
+    <link rel="stylesheet" href="fun.css">
 </head>
 <body>
-    <header>
-        <h2>Attendify</h2>
-        <a class="button" href="/logout">Sign Out</a>
-    </header>
     <main>
-        <div class="hero">
+        <header>
             <h1><span id="instructor_full_name"></span></h1>
-            <div class="flex">
-                <div class="svg_verified"></div>
+            <div class="respect">
+                <img src="resources/verified.svg" alt="" srcset="">
                 <p>Verified Teacher</p>
+                <a class="button" href="/logout">Sign Out</a>
             </div>
-        </div>
+        </header>
 
-        <section id="banner" class="banner">
-            <div class="stagePrompt">
-                <div class="svg_welcome"></div>
-                <h2>Welcome to</h2>
-                <h1>Attendify!</h1>
-                <p>If you are familiar with using Notion, you'll definitely feel at home, There were no frameworks used, to ensure lightness of the site :></p>
-                <button onclick="dismissBanner()">Got it, Thanks!</button>
-            </div>
+        <section id="banner" class="banner prompting wrapped">
+            <img src="resources/Christmas-Collection n5.svg" alt="" srcset="" class="scalable">
+            <h4>Welcome to</h4>
+            <h1 class="colorfull">Attendify!</h1>
+            <p>If you are familiar with using Notion, you'll definitely feel at home, There were no frameworks used, to ensure lightness of the site :></p>
+            <button onclick="dismissBanner()">Got it, Thanks!</button>
         </section>
 
         <!-- <section>
@@ -42,9 +42,9 @@
         </section> -->
 
         <section>
-            <h2>Ongoing</h2>
-            <div id="isFreeTime" class="stagePrompt">
-                <div class="svg_noClasses"></div>
+            <h3>Ongoing</h3>
+            <div id="isFreeTime" class="prompting wrapped">
+                <img src="resources/Chill-Time.svg" alt="" class="scalable">
                 <small>No ongoing classes right now</small>
             </div>
 
@@ -81,7 +81,7 @@
         </section>
 
         <section>
-            <h2>Schedules</h2>
+            <h3>Schedules</h3>
             <div class="displayTable">
                 <table>
                     <thead>
@@ -100,22 +100,17 @@
         </section>
 
         <section>
-            <h2>Monthly Attendance</h2>
-            <div class="stagePrompt">
-                <div class="svg_wait"></div>
+            <h3>Monthly Attendance</h3>
+            <div class="prompting wrapped">
+                <img src="resources/prompt.svg" alt="" class="scalable">
                 <small>Work in progress :></small>
             </div>
         </section>
 
         <section>
-            <div class="textToSVG">
-                <div>
-                    <h2>Exporting Data</h2>
-                    <p>You can download a CSV copy of your students attendance records on the selected course here, note that the courses you're only incharge of is shown.</p>
-                </div>
-                <div class="svg_attendance"></div>
-            </div>
-            <h3>Courses</h3>
+            <h2>Exporting Data</h2>
+            <p>You can download a CSV copy of your students attendance records on the selected course here, note that the courses you're only incharge of is shown.</p>
+            <h4>Courses</h4>
             <a href="#">Inquiries, Investigation, Immersion</a>
             <a href="#">Work Immersion</a>
         </section>

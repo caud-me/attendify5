@@ -5,7 +5,7 @@ const cron = require('node-cron');
 const app = express()
 const port = 3000
 
-app.use(express.json()); // Parse JSON request bodies
+app.use(express.json()); // parse JSON request bodies
 app.use(express.urlencoded({extended: true}))
 app.use(session({
     secret: 'npfnqh9op8f9wenfp49r38r4',
@@ -66,7 +66,7 @@ app.get('/', (req,res) => {
         res.redirect('/home')
     }
 })
-
+// wassup lil nigger henry is a fucking nigga love nath and erron
 app.post('/Login', async (req, res) => {
     const {username, password} = req.body
     try {
@@ -97,6 +97,7 @@ app.post('/Login', async (req, res) => {
 app.get('/401', (req, res) => {res.sendFile(__dirname + '/public/401.html')})
 app.get('/home', (req, res) => {res.sendFile(__dirname + '/public/index.html')})
 app.get('/checklists', (req, res) => {res.sendFile(__dirname + '/public/checklists.html')})
+app.get('/welcome', (req, res) => {res.sendFile(__dirname + '/public/immersive-area.html')})
 
 // role protected pages
 app.get('/instructors', requireRole(['teacher']), (req, res) => { res.sendFile(__dirname + '/public/instructors.html')})
@@ -144,12 +145,12 @@ app.get('/instructors/me', requireRole(['teacher']), async (req, res) => {
 app.get('/instructors/ongoing', async (req, res) => {
     const username = req.session.user.username;
     // hardcode for testing
-    const dateString = req.query.date || '2025-02-10';
-    const timeString = req.query.time || '17:00:00';
+    // const dateString = req.query.date || '2025-02-10';
+    // const timeString = req.query.time || '17:00:00';
 
-    // const now = new Date();
-    // const dateString = now.toISOString().split('T')[0]; // e.g., '2025-02-02'
-    // const timeString = now.toTimeString().split(' ')[0]; // e.g., '00:51:00'
+    const now = new Date();
+    const dateString = now.toISOString().split('T')[0]; // e.g., '2025-02-02'
+    const timeString = now.toTimeString().split(' ')[0]; // e.g., '00:51:00'
 
     const date = new Date(dateString + 'T' + timeString);
     const dayName = date.toLocaleDateString('en-US', { weekday: 'short' });

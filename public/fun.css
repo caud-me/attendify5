@@ -1,0 +1,12 @@
+.colorfull:hover {
+    background: linear-gradient(45deg, #ff7eb3, #3714ff, #ff6a82, #ff7eb3, #3714ff, #ff6a82);
+    background-size: 600% 600%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: moveGradient 2s linear infinite;
+}
+
+@keyframes moveGradient {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+}

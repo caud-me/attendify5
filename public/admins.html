@@ -4,25 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="eric meyers.css">
-    <link rel="stylesheet" href="style.css">
+    <!-- old UI vLEGACY -->
+    <!-- <link rel="stylesheet" href="eric meyers.css">
+    <link rel="stylesheet" href="style.css"> -->
+
+    <!-- NextUI v0.0.4 -->
+    <link rel="stylesheet" href="normalize.css">
+    <link rel="stylesheet" href="nextUI.css">
 </head>
 <body>
-    <header>
-        <h2>Attendify</h2>
-        <a class="button" href="/logout">Sign Out</a>
-    </header>
     <main>
-        <div class="hero">
+        <header>
             <h1><span id="admin_full_name"></span></h1>
-            <div class="flex">
-                <div class="svg_verified"></div>
+            <div class="respect">
+                <img src="resources/verified.svg" alt="">
                 <p>Verified Admin</p>
+                <a class="button" href="/logout">Sign Out</a>
             </div>
-        </div>
+        </header>
 
         <section>
-            <h2>Database Manager</h2>
+            <h3>Database Manager</h3>
             <div class="tab-container" role="tablist">
                 <button class="tab-button active" data-tab="users" role="tab">Users</button>
                 <button class="tab-button" data-tab="students" role="tab">Students</button>
@@ -31,7 +33,7 @@
                 <button class="tab-button" data-tab="classes" role="tab">Classes</button>
             </div>
             <div class="tab-content active" data-tab="users" role="tabpanel">
-                <h3>Users</h3>
+                <h4>Users</h4>
                 <div class="displayTable">
                     <table>
                         <thead>
@@ -49,7 +51,7 @@
                 </div>
             </div>
             <div class="tab-content" data-tab="students" role="tabpanel">
-                <h3>Students</h3>
+                <h4>Students</h4>
                 <div class="displayTable">
                     <table>
                         <thead>
@@ -71,7 +73,7 @@
                 </div>
             </div>
             <div class="tab-content" data-tab="student_classes" role="tabpanel">
-                <h3>Student Classes</h3>
+                <h4>Student Classes</h4>
                 <div class="displayTable">
                     <table>
                         <thead>
@@ -90,7 +92,7 @@
                 </div>
             </div>
             <div class="tab-content" data-tab="courses" role="tabpanel">
-                <h3>Courses</h3>
+                <h4>Courses</h4>
                 <div class="displayTable">
                     <table>
                         <thead>
@@ -107,7 +109,7 @@
                 </div>
             </div>
             <div class="tab-content" data-tab="classes" role="tabpanel">
-                <h3>Classes</h3>
+                <h4>Classes</h4>
                 <div class="displayTable">
                     <table>
                         <thead>
@@ -131,7 +133,7 @@
         </section>
 
         <section>
-            <h2>Registration</h2>
+            <h3>Registration</h3>
             <div class="tab-container" role="tablist">
                 <button class="tab-button active" data-tab="guards" role="tab">Guards</button>
                 <button class="tab-button" data-tab="teachers" role="tab">Teachers</button>
@@ -139,67 +141,66 @@
                 <button class="tab-button" data-tab="students" role="tab">Students</button>
             </div>
             <div class="tab-content active" data-tab="guards" role="tabpanel">
-                <h3>Role of Guards</h3>
+                <h4>Role of Guards</h4>
                 <p>Guards scan each registered students RFIDs with a physical device supported by Attendify. Once scanned, the basic information will show on their screen to ensure validity & avoid proxy attendance.</p>
                 <form action="/admins/createGuard" method="post">
-                    <small>Complete Name</small><br>
-                    <input type="text" name="fullname" placeholder="Johnny Appleseed" required><br>
+                    <small>Complete Name</small>
+                    <input type="text" name="fullname" placeholder="Johnny Appleseed" required>
                     <button type="submit">Create Guard Account</button>
                 </form>
             </div>
             <div class="tab-content" data-tab="teachers" role="tabpanel">
-                <h3>Teachers</h3>
+                <h4>Teachers</h4>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis voluptatibus dicta qui quod unde. Unde asperiores delectus aliquam. Illum quos nulla at id, iste voluptatibus doloremque cum repellat culpa tenetur.</p>
                 <form action="/admins/createTeacher" method="post">
-                    <small>Complete Name</small><br>
-                    <input type="text" name="fullname" placeholder="Johnny Appleseed" required><br>
+                    <small>Complete Name</small>
+                    <input type="text" name="fullname" placeholder="Johnny Appleseed" required>
                     <button type="submit">Create Teacher Account</button>
                 </form>
             </div>
             <div class="tab-content" data-tab="admins" role="tabpanel">
-                <h3>Admins</h3>
+                <h4>Admins</h4>
                 <p>Admins have full access to the system, the records, automation and database</p>
                 <form action="/admins/createAdmin" method="post">
-                    <small>Complete Name</small><br>
-                    <input type="text" name="fullname" placeholder="Johnny Appleseed" required><br>
+                    <small>Complete Name</small>
+                    <input type="text" name="fullname" placeholder="Johnny Appleseed" required>
                     <button type="submit">Create Admin Account</button>
                 </form>
             </div>
             <div class="tab-content" data-tab="students" role="tabpanel">
-                <h3>Students</h3>
-                <h1>students are HARD to configure</h1>
+                <h4>Students</h4>
                 <form id="studentForm" action="/admins/createStudent" method="POST">
                     <h3>Registering Student</h3>
                 
-                    <label>Student ID (Provided by School)</label>
+                    <small>Student ID (Provided by School)</small>
                     <input type="text" name="student_id" placeholder="e.g. 02000376725" required>
                 
-                    <label>Complete Name</label>
+                    <small>Complete Name</small>
                     <input type="text" name="full_name" placeholder="e.g. Johnny Appleseed" required>
                 
-                    <label>RFID Number (Unique)</label>
+                    <small>RFID Number (Unique)</small>
                     <input type="text" name="rfid" placeholder="e.g. RFID0001" required>
                 
-                    <label>Is the student Regular or Irregular?</label>
+                    <small>Is the student Regular or Irregular?</small>
                     <select name="is_regular" id="is_regular" required onchange="toggleGradeSection()">
                         <option value="1">Regular Student</option>
                         <option value="0">Irregular Student</option>
                     </select>
                 
                     <div id="regularSection">
-                        <label>Grade Section (Only for Regular Students)</label>
+                        <small>Grade Section (Only for Regular Students)</small>
                         <input type="text" name="grade_section" id="grade_section" placeholder="e.g. 12-MAWD" required>
                     </div>
                 
                     <div id="irregularSection" style="display: none;">
-                        <label>Select Subjects (For Irregular Students)</label>
+                        <small>Select Subjects (For Irregular Students)</small>
                         <div id="subjectList">Loading subjects...</div>
                     </div>
                 
-                    <label>Parent/Guardian Contact Number</label>
+                    <small>Parent/Guardian Contact Number</small>
                     <input type="text" name="guardian_contact" placeholder="e.g. +639261234567" required>
                 
-                    <label>(Advanced) Student Profile Image</label>
+                    <small>(Advanced) Student Profile Image</small>
                     <input type="file" name="profile_image" accept="image/*">
                 
                     <button type="submit">+ Enroll Student to Attendify</button>
@@ -240,12 +241,12 @@
                                     checkbox.name = "class_ids";
                                     checkbox.value = subject.class_id;
 
-                                    const label = document.createElement("label");
-                                    label.textContent = `${subject.class_id} - ${subject.teacher_username}`;
+                                    const small = document.createElement("small");
+                                    small.textContent = `${subject.class_id} - ${subject.teacher_username}`;
                                     
                                     const div = document.createElement("div");
                                     div.appendChild(checkbox);
-                                    div.appendChild(label);
+                                    div.appendChild(small);
 
                                     subjectListDiv.appendChild(div);
                                 });
@@ -259,40 +260,40 @@
         </section>
 
         <section>
-            <h2>Courses*</h2>
+            <h3>Courses</h3>
             <form action="/admins/addCourse" method="post">
-                <small>Course Code (Provided by School)</small><br>
-                <input type="text" name="coursecode" placeholder="e.g. SHS1000" required><br>
-                <small>Course Description</small><br>
-                <input type="text" name="coursename" placeholder="e.g. Artificial Intelligence IV" required><br>
+                <small>Course Code (Provided by School)</small>
+                <input type="text" name="coursecode" placeholder="e.g. SHS1000" required>
+                <small>Course Description</small>
+                <input type="text" name="coursename" placeholder="e.g. Artificial Intelligence IV" required>
                 <button type="submit">+ Add Course</button>
             </form>
         </section>
 
         <section>
-            <h2>Classes</h2>
+            <h3>Classes</h3>
             <p>The same teacher may have multiple classes as long as the schedules don't interfere</p>
             <form action="/admins/addClass" method="post">
-                <h3>General</h3>
-                <small>What Subject? In Course Code (Provided by School)</small><br>
-                <input type="text" name="coursecode" placeholder="e.g. SHS1000" required><br>
-                <small>For Grade Section?</small><br>
-                <input type="text" name="gradesection" placeholder="e.g. 12-STEM" required><br>
-                <small>Whos the Instructor for this course?</small><br>
-                <input type="text" name="username" placeholder="e.g. johnny.appleseed" required><br>
-                <h3>Schedule</h3>
-                <small>Day of class</small><br>
+                <h4>General</h4>
+                <small>What Subject? In Course Code (Provided by School)</small>
+                <input type="text" name="coursecode" placeholder="e.g. SHS1000" required>
+                <small>For Grade Section?</small>
+                <input type="text" name="gradesection" placeholder="e.g. 12-STEM" required>
+                <small>Whos the Instructor for this course?</small>
+                <input type="text" name="username" placeholder="e.g. johnny.appleseed" required>
+                <h4>Schedule</h4>
+                <small>Day of class</small>
                 <select name="day" title="day">
                     <option value="Mon" default>Mon</option>
                     <option value="Tue">Tue</option>
                     <option value="Wed">Wed</option>
                     <option value="Thu">Thu</option>
                     <option value="Fri">Fri</option>
-                </select><br>
-                <small>Start Time</small><br>
-                <input type="text" name="starttime" placeholder="e.g. 10:30" required><br>
-                <small>End Time</small><br>
-                <input type="text" name="endtime" placeholder="e.g. 10:30" required><br>
+                </select>
+                <small>Start Time</small>
+                <input type="text" name="starttime" placeholder="e.g. 10:30" required>
+                <small>End Time</small>
+                <input type="text" name="endtime" placeholder="e.g. 10:30" required>
                 <button type="submit">+ Add Class</button>
             </form>
         </section>
@@ -411,15 +412,4 @@ async function admins_api() {
 
 admins_api()
 </script>
-<script>
-    function autoResizeInput(input) {
-      input.style.width = "1px"; // Reset width to get accurate measurement
-      input.style.width = (input.value.length + 1) + "ch";
-    }
-  
-    document.querySelectorAll('input[type="text"]').forEach(input => {
-      input.addEventListener("input", () => autoResizeInput(input));
-      autoResizeInput(input); // Initialize width on page load
-    });
-  </script>
 </html>
