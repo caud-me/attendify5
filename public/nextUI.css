@@ -231,6 +231,9 @@ form.signIn {
 .tab-content.active {
     display: block;
     animation: faders .5s cubic-bezier(0.075, 0.82, 0.165, 1);
+    padding: 1rem;
+    background-color: #80808010;
+    border: solid 1px #80808020;
 }
 
 .displayTable {

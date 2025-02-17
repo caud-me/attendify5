@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>JSON File Updates</title>
+  <style>
+    body { font-family: Arial, sans-serif; }
+    #data { background: #f4f4f4; padding: 10px; border: 1px solid #ccc; }
+  </style>
+</head>
+<body>
+  <h1>Latest JSON Data</h1>
+  <pre id="data">Waiting for updates...</pre>
+
+  <!-- Load the Socket.io client library -->
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    // Connect to the server
+    const socket = io();
+
+    // Listen for the 'data-update' event from the server
+    socket.on('data-update', (data) => {
+      // Update the page with the latest JSON data
+      document.getElementById('data').textContent = JSON.stringify(data, null, 2);
+    });
+  </script>
+</body>
+</html>

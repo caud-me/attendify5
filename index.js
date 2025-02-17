@@ -214,7 +214,7 @@ app.get('/instructors/ongoing', async (req, res) => {
 });
 app.post('/instructors/update_status', async (req, res) => {
     const { student_id, status, class_id } = req.body; // Get class_id from req.body
-    console.log("Received:", { student_id, status, class_id });
+    console.log("Received:", { student_id, status, class_id });s
     const dateString = '2025-01-27';
 
     try {
