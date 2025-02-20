@@ -44,7 +44,7 @@ function toUsername(fullName) {
 const pool = mysql.createPool({
     host: 'localhost',
     user: 'root',
-    password: 'attendify',
+    password: 'Jamesros092607',
         // magkaiba tayo pasword
     database: 'attendify5',
     waitForConnections: true,

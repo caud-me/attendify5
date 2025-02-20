@@ -1,1 +1,53 @@
-{}
+{
+    "Approximate your card to the reader...": {
+        "timeIn": "2025-02-20 10:00:37",
+        "status": "Out",
+        "timeOut": "2025-02-20 10:16:08"
+    },
+    "UID tag : 14 2B 5D DF": {
+        "timeIn": "2025-02-20 10:16:12",
+        "status": "In",
+        "timeOut": "2025-02-20 10:16:09"
+    },
+    "Message :  Access denied": {
+        "timeIn": "2025-02-20 10:16:46",
+        "status": "In",
+        "timeOut": "2025-02-20 10:16:42"
+    },
+    "UID tag : 54 CC 80 DF": {
+        "timeIn": "2025-02-20 10:01:22",
+        "status": "Out",
+        "timeOut": "2025-02-20 10:16:26"
+    },
+    "UID tag : 24 27 5D DF": {
+        "timeIn": "2025-02-20 09:52:33",
+        "status": "Out",
+        "timeOut": "2025-02-20 09:53:18"
+    },
+    "Message : Authorized access": {
+        "timeIn": "2025-02-20 09:52:33",
+        "status": "Out",
+        "timeOut": "2025-02-20 09:53:18"
+    },
+    "UID tag : E4 EB 5F DF": {
+        "timeIn": "2025-02-20 10:16:29",
+        "status": "Out",
+        "timeOut": "2025-02-20 10:16:35"
+    },
+    "UID tag : 74 39 51 DF": {
+        "timeIn": "2025-02-20 10:16:32",
+        "status": "In"
+    },
+    "UID tag : D4 14 52 DF": {
+        "timeIn": "2025-02-20 10:16:38",
+        "status": "In"
+    },
+    "UID tag : 14 B1 31 F9": {
+        "timeIn": "2025-02-20 10:16:42",
+        "status": "In"
+    },
+    "UID tag : A4 E7 25 F9": {
+        "timeIn": "2025-02-20 10:16:46",
+        "status": "In"
+    }
+}

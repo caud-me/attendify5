@@ -4,7 +4,7 @@ import time
 import os
 
 # Configure the serial port
-SERIAL_PORT = 'COM7'  # Adjust as needed
+SERIAL_PORT = 'COM12'  # Adjust as needed
 BAUD_RATE = 9600
 
 def initialize_serial():
